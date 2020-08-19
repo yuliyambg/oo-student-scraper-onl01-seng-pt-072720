@@ -4,11 +4,10 @@ require 'pry'
 
 class Scraper
 
-
-  def self.scrape_index_page(index_url)
+ def self.scrape_index_page(index_url)
     doc = Nokogiri::HTML(open(index_url))
-
-     scraped_students = []
+    
+    scraped_students = []
 
     doc.css(".student-card").each do |student|
       scraped_students << {
@@ -25,10 +24,8 @@ class Scraper
     
     doc = Nokogiri::HTML(open(profile_url))
     student = Hash.new
-  t[:linkedin] = normalized_link if normalized_link.include?("linkedin")
- 
 
-social_icons = doc.css("div.social-icon-container a").collect {|x| x.attribute("href").value}
+    social_icons = doc.css("div.social-icon-container a").collect {|x| x.attribute("href").value}
     social_icons.each do |social_icon|
       if social_icon.include?("linkedin")
         student[:linkedin] = social_icon
